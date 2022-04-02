@@ -5,9 +5,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "server:start": "node server.js",
+    "dev": "yarn server:start & vite",
     "build": "vite build",
-    "preview": "vite preview",
+    "preview": "yarn server:start & vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "prettify": "npx prettier --write ."
   },
@@ -24,6 +25,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-promise": "^5.2.0",
+    "node-fetch": "^3.2.3",
     "postcss": "^8.4.12",
     "prettier": "2.6.2",
     "svelte": "^3.44.0",
@@ -35,6 +37,8 @@
     "vite": "^2.9.0"
   },
   "dependencies": {
-    "daisyui": "^2.13.6"
+    "daisyui": "^2.13.6",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3"
   }
 }
