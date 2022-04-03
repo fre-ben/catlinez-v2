@@ -5,16 +5,22 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "server:start": "node server.js",
-    "dev": "yarn server:start & vite",
-    "build": "vite build",
-    "preview": "yarn server:start & vite preview",
+    "start": "node dist/server.js",
+    "dev": "yarn server:dev & yarn client:dev",
+    "build": "yarn client:build && yarn server:build",
+    "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
-    "prettify": "npx prettier --write ."
+    "prettify": "npx prettier --write .",
+    "client:build": "vite build",
+    "client:dev": "vite",
+    "server:build": "tsc --project tsconfig.server.json",
+    "server:dev": "ts-node --esm --transpile-only --project tsconfig.server.json src/server/server.ts"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^1.0.0-next.30",
     "@tsconfig/svelte": "^2.0.1",
+    "@types/express": "^4.17.13",
+    "@types/node": "^17.0.23",
     "@typescript-eslint/eslint-plugin": "^5.17.0",
     "@typescript-eslint/parser": "^5.17.0",
     "autoprefixer": "^10.4.4",
@@ -32,6 +38,7 @@
     "svelte-check": "^2.2.7",
     "svelte-preprocess": "^4.9.8",
     "tailwindcss": "^3.0.23",
+    "ts-node": "^10.7.0",
     "tslib": "^2.3.1",
     "typescript": "^4.5.4",
     "vite": "^2.9.0"

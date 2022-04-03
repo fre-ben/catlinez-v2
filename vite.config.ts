@@ -7,7 +7,10 @@ export default defineConfig({
   server: {
     port: 1337,
     proxy: {
-      "/api/cat": "http://localhost:3000/",
+      "/api/cat": { target: "http://localhost:3000/", changeOrigin: true },
     },
+  },
+  build: {
+    outDir: "dist/app",
   },
 });

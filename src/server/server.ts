@@ -5,10 +5,12 @@ import fetch from "node-fetch";
 const app = express();
 const TENOR_APIKEY = process.env.VITE_TENOR_APIKEY;
 
+app.use(express.json());
+
 app.get("/api/cat", async (req, res) => {
   if (req.method === "GET") {
     async function fetchRandomCatGIF() {
-      const gif = await fetch(`https://g.tenor.com/v1/random?key=${TENOR_APIKEY}&q=cat&locale=en_US&limit=1`).then(
+      const gif: any = await fetch(`https://g.tenor.com/v1/random?key=${TENOR_APIKEY}&q=cat&locale=en_US&limit=1`).then(
         (res) => res.json()
       );
       return await gif.results[0].media[0].mediumgif.url;
@@ -28,4 +30,10 @@ app.get("/api/cat", async (req, res) => {
   }
 });
 
-app.listen(3000, () => console.log(`Starting express backend on port 3000!`));
+app.use(express.static("dist/app"));
+
+app.get("*", (_request, response) => {
+  response.sendFile("index.html", { root: "dist/app" });
+});
+
+app.listen(3000, () => console.log(`Server listening on port 3000! See: http://localhost:3000/`));
