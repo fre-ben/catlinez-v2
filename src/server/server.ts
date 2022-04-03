@@ -1,12 +1,13 @@
-import "dotenv/config";
+import dotenv from "dotenv";
 import express from "express";
 import fetch from "node-fetch";
-import type { CatGif } from "../types";
+import type { CatGif, CurrentsNews } from "../types";
+dotenv.config({ path: `.env.local` });
 
 const app = express();
 
 const TENOR_APIKEY = process.env.VITE_TENOR_API;
-const RAPID_APIKEY = process.env.VITE_RAPID_API;
+const CURRENTS_APIKEY = process.env.VITE_CURRENTS_API;
 
 app.use(express.json());
 
@@ -48,20 +49,12 @@ app.get("/api/cat", async (req, res) => {
 
 app.get("/api/news", async (req, res) => {
   if (req.method === "GET") {
-    async function fetchNews() {
-      const options = {
-        method: "GET",
-        headers: {
-          "X-RapidAPI-Host": "free-news.p.rapidapi.com",
-          "X-RapidAPI-Key": RAPID_APIKEY,
-        },
-      };
+    async function fetchNews(): Promise<CurrentsNews> {
+      const news = await fetch(
+        `https://api.currentsapi.services/v1/latest-news?category=general&language=de&apiKey=${CURRENTS_APIKEY}`
+      ).then((response) => response.json());
 
-      const news = await fetch("https://free-news.p.rapidapi.com/v1/search?q=a&lang=en", options).then((response) =>
-        response.json()
-      );
-
-      return news;
+      return news as CurrentsNews;
     }
 
     try {
@@ -69,7 +62,7 @@ app.get("/api/news", async (req, res) => {
       console.log("Backend: news requested");
 
       return res.status(200).json({
-        news,
+        ...news,
       });
     } catch {
       return res.status(500).json({

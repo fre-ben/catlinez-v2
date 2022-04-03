@@ -3,3 +3,21 @@ export interface CatGif {
   url: string;
   dims: Number[];
 }
+
+export interface CurrentsNews {
+  status: string;
+  news: [
+    {
+      id: string;
+      title: string;
+      description: string;
+      url: string;
+      author: string;
+      image: string;
+      language: string;
+      category: string[];
+      published: string;
+    }
+  ];
+  page: number;
+}
