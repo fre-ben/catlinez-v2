@@ -1,18 +1,45 @@
 <script lang="ts">
-  async function fetchGIF() {
-    const gif = await fetch(`/api/cat`, { method: "GET" }).then((res) => res.json());
+  import type { CatGif } from "src/types";
 
-    console.log(await gif);
+  async function fetchCatGIF(): Promise<CatGif> {
+    const response = await fetch(`/api/cat`, { method: "GET" });
+    const catGif = await response.json();
+
+    if (response.ok) {
+      return catGif;
+    } else {
+      throw new Error(catGif);
+    }
+  }
+
+  let catPromise = fetchCatGIF();
+
+  function handleClick() {
+    catPromise = fetchCatGIF();
   }
 </script>
 
-<div>
-  <button class="btn btn-accent" on:click={async () => fetchGIF()}>German Catline</button>
+<div class="btnContainer">
+  <button class="btn btn-accent" on:click={handleClick}>German Catline</button>
   <button class="btn btn-accent">English Catline</button>
 </div>
 
+<div class="catContainer">
+  {#await catPromise}
+    <p>...Looking for cats</p>
+  {:then cat}
+    <img src={cat.url} alt={cat.title} width="300px" />
+  {:catch error}
+    <p>{error}</p>
+  {/await}
+</div>
+
 <style>
-  div {
+  .btnContainer {
     @apply flex justify-center gap-x-5;
+  }
+
+  .catContainer {
+    @apply grid justify-items-center h-60 items-center max-h-60;
   }
 </style>
