@@ -5,7 +5,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "node dist/server.js",
+    "start": "node dist/server/server.js",
     "dev": "yarn server:dev & yarn client:dev",
     "build": "yarn client:build && yarn server:build",
     "preview": "vite preview",
