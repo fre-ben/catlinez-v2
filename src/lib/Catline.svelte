@@ -1,21 +1,10 @@
 <script lang="ts">
-  import type { CatGif } from "src/types";
+  import { getCatGIF } from "../utils/api";
 
-  async function fetchCatGIF(): Promise<CatGif> {
-    const response = await fetch(`/api/cat`, { method: "GET" });
-    const catGif = await response.json();
-
-    if (response.ok) {
-      return catGif;
-    } else {
-      throw new Error(catGif);
-    }
-  }
-
-  let catPromise = fetchCatGIF();
+  let catPromise = getCatGIF();
 
   function handleClick() {
-    catPromise = fetchCatGIF();
+    catPromise = getCatGIF();
   }
 </script>
 
