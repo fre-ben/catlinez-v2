@@ -37,7 +37,7 @@
   {:then { cat, headline }}
     <div class="grid place-items-center gap-y-4" in:fade={{ delay: 0, duration: 250 }}>
       <a href={headline.url} target="_blank" rel="noreferrer noopener nofollow" class="hover:underline">
-        <h2 class="text-2xl">{headline.title}</h2>
+        <h2 class="text-2xl text-center">{headline.title}</h2>
       </a>
       <img class="rounded-md" src={cat.url} alt={cat.title} width="300px" />
     </div>
