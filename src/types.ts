@@ -4,6 +4,11 @@ export interface CatGif {
   dims: Number[];
 }
 
+export interface Headline {
+  title: string;
+  url: string;
+}
+
 export interface CurrentsNews {
   status: string;
   news: [

@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import express from "express";
 import fetch from "node-fetch";
-import type { CatGif, CurrentsNews } from "../types";
+import type { CatGif, CurrentsNews, Headline } from "../types";
 dotenv.config({ path: `.env.local` });
 
 const app = express();
@@ -62,9 +62,9 @@ app.get("/api/news", async (req, res) => {
 
     try {
       const news = await fetchNews();
-      const randomNews = news.news[Math.floor(Math.random() * news.news.length)];
+      const randomNews: typeof news.news[0] = news.news[Math.floor(Math.random() * news.news.length)];
 
-      const headline = { title: randomNews.title, url: randomNews.url };
+      const headline: Headline = { title: randomNews.title, url: randomNews.url };
 
       console.log("Backend: news requested");
 
