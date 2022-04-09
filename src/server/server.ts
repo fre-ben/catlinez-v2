@@ -11,10 +11,24 @@ const CURRENTS_APIKEY = process.env.VITE_CURRENTS_API;
 
 app.use(express.json());
 
+/**
+ * Gets a random Headline from a news Object array
+ * @param news
+ * @returns Headline
+ */
+function getRandomHeadline(news: CurrentsNews): Headline {
+  const randomNews: typeof news.news[0] = news.news[Math.floor(Math.random() * news.news.length)];
+  const headline = { title: randomNews.title, url: randomNews.url };
+
+  return headline;
+}
+
 app.get("/api/cat", async (req, res) => {
   if (req.method === "GET") {
-    // Fetches random cat gif from Tenor API
-    // Called serverside
+    /**
+     * Fetches random cat gif from Tenor API
+     * @returns Promise<CatGif>
+     */
     async function fetchRandomCatGIF(): Promise<CatGif> {
       const result: any = await fetch(
         `https://g.tenor.com/v1/random?key=${TENOR_APIKEY}&q=cat&locale=en_US&limit=1`
@@ -46,7 +60,7 @@ app.get("/api/cat", async (req, res) => {
     });
   }
 });
-
+// TODO: Add german and english endpoint news/german and news/english
 app.get("/api/news", async (req, res) => {
   if (req.method === "GET") {
     async function fetchNews(): Promise<CurrentsNews> {
@@ -62,15 +76,10 @@ app.get("/api/news", async (req, res) => {
 
     try {
       const news = await fetchNews();
-      const randomNews: typeof news.news[0] = news.news[Math.floor(Math.random() * news.news.length)];
-
-      const headline: Headline = { title: randomNews.title, url: randomNews.url };
 
       console.log("Backend: news requested");
 
-      return res.status(200).json({
-        headline,
-      });
+      return res.status(200).json(getRandomHeadline(news));
     } catch {
       return res.status(500).json({
         error: "Something went wrong",
