@@ -6,9 +6,9 @@
 
   let catPromise: Promise<CatGif>;
   let headlinePromise: Promise<Headline>;
-  let catlinePromise = awaitPromises("en");
+  let catlinePromise = collectAllPromises("en");
 
-  async function awaitPromises(language: string): Promise<{
+  async function collectAllPromises(language: string): Promise<{
     cat: CatGif;
     headline: Headline;
   }> {
@@ -22,7 +22,7 @@
   }
 
   function handleClick(language: string) {
-    catlinePromise = awaitPromises(language);
+    catlinePromise = collectAllPromises(language);
   }
 </script>
 
