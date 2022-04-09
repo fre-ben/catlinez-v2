@@ -15,11 +15,12 @@
 
 <div class="catContainer">
   {#await catPromise}
-    <p>...Looking for cats</p>
+    <p>...Auf der Suche nach Katzen 😺</p>
   {:then cat}
     <img src={cat.url} alt={cat.title} width="300px" />
   {:catch error}
-    <p>{error}</p>
+    {console.error(error)}
+    <p>Keine Katze gefunden 😿</p>
   {/await}
 </div>
 
