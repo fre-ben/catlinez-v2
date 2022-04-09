@@ -51,19 +51,25 @@ app.get("/api/news", async (req, res) => {
   if (req.method === "GET") {
     async function fetchNews(): Promise<CurrentsNews> {
       const news = await fetch(
-        `https://api.currentsapi.services/v1/latest-news?category=general&language=de&apiKey=${CURRENTS_APIKEY}`
-      ).then((response) => response.json());
+        `https://api.currentsapi.services/v1/search?type=1&page_size=150&category=general&language=de&apiKey=${CURRENTS_APIKEY}`
+      ).then((response) => {
+        console.log("Daily calls to Currents API remaining: " + response.headers.get("X-RateLimit-Remaining"));
+        return response.json();
+      });
 
       return news as CurrentsNews;
     }
 
     try {
       const news = await fetchNews();
+      const randomNews = news.news[Math.floor(Math.random() * news.news.length)];
+
+      const headline = { title: randomNews.title, url: randomNews.url };
 
       console.log("Backend: news requested");
 
       return res.status(200).json({
-        ...news,
+        headline,
       });
     } catch {
       return res.status(500).json({
