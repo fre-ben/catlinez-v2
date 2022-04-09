@@ -3,7 +3,10 @@
 </script>
 
 <main>
-  <h1>CATLINEZ</h1>
+  <div class="headlineContainer">
+    <h1>CATLINEZ</h1>
+    <span class="badge">v2</span>
+  </div>
 
   <Catline />
 </main>
@@ -15,5 +18,13 @@
 
   h1 {
     @apply text-6xl text-white;
+  }
+
+  .headlineContainer {
+    @apply flex justify-center items-center gap-x-4 relative;
+  }
+
+  .headlineContainer > span {
+    @apply absolute top-9 -right-10;
   }
 </style>
