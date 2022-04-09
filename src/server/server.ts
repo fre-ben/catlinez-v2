@@ -59,6 +59,7 @@ app.get("/api/news", async (req, res) => {
 
     try {
       const news = await fetchNews();
+
       console.log("Backend: news requested");
 
       return res.status(200).json({
