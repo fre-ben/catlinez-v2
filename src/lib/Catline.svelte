@@ -4,6 +4,7 @@
   import InlineSVG from "svelte-inline-svg";
   import { fade } from "svelte/transition";
   import { getCatGIF, getHeadline } from "../utils/api";
+  import tenorAttributionSVG from "../assets/via_tenor_logo_white.svg";
 
   let catPromise: Promise<CatGif>;
   let headlinePromise: Promise<Headline>;
@@ -42,13 +43,7 @@
       </a>
       <div class="grid gap-y-1">
         <img class="rounded-md" src={cat.url} alt={cat.title} width="300px" />
-        <InlineSVG
-          src="src/assets/via_tenor_logo_white.svg"
-          height={10}
-          width={50}
-          class="justify-self-end"
-          tabindex={-1}
-        />
+        <InlineSVG src={tenorAttributionSVG} height={10} width={50} class="justify-self-end" tabindex={-1} />
       </div>
     </div>
   {:catch error}
