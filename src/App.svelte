@@ -10,10 +10,22 @@
 
   <Catline />
 </main>
+<footer>
+  made by <a
+    href="https://github.com/fre-ben"
+    target="_blank"
+    rel="noreferrer noopener nofollow"
+    class="hover:underline text-accent">fre-ben</a
+  >
+</footer>
 
 <style>
   main {
     @apply grid w-full p-4 justify-items-center gap-y-10;
+  }
+
+  footer {
+    @apply text-center text-xs mb-10;
   }
 
   h1 {
