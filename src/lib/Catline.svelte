@@ -33,7 +33,7 @@
   <button class="btn btn-accent" on:click={() => handleClick("en")}>English Catline</button>
 </div>
 
-<div class="catlineContainer">
+<div class="catlineContainer" data-testid="catlineContainer">
   {#await catlinePromise}
     <span class="text-8xl animate-spin">😺</span>
   {:then { cat, headline }}
