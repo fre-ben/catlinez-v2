@@ -2,7 +2,7 @@
   "name": "catlinez-v2",
   "author": "fre-ben",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "start": "node dist/server/server.js",
