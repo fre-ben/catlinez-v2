@@ -1,5 +1,10 @@
 <script lang="ts">
   import Catline from "./lib/Catline.svelte";
+  import { initPlausible } from "./utils/analytics";
+
+  if (typeof window !== "undefined") {
+    initPlausible();
+  }
 </script>
 
 <main>
