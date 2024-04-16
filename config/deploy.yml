@@ -15,7 +15,6 @@ servers:
       traefik.http.routers.catlinez-v2-web_secure.rule: Host(`catlinez.freben.xyz`)
       traefik.http.routers.catlinez-v2-web_secure.tls: true
       traefik.http.routers.catlinez-v2-web_secure.tls.certresolver: letsencrypt
-      # traefik.http.routers.catlinez-v2-web.rule: "Host(`catlinez.freben.xyz`)"
 
 # Credentials for your image host.
 registry:
@@ -37,6 +36,7 @@ env:
   secret:
     - VITE_TENOR_API
     - VITE_CURRENTS_API
+    - ENCRYPT_EMAIL
 
 # Use a different ssh user than root
 # ssh:
@@ -76,10 +76,6 @@ env:
 #       - data:/data
 
 # Configure custom arguments for Traefik
-# traefik:
-#   args:
-#     accesslog: true
-#     accesslog.format: json
 traefik:
   options:
     publish:
@@ -92,7 +88,7 @@ traefik:
     entryPoints.web.http.redirections.entryPoint.to: websecure
     entryPoints.web.http.redirections.entryPoint.scheme: https
     entryPoints.web.http.redirections.entrypoint.permanent: true
-    certificatesResolvers.letsencrypt.acme.email: "fschocke@gmail.com"
+    certificatesResolvers.letsencrypt.acme.email: ENCRYPT_EMAIL
     certificatesResolvers.letsencrypt.acme.storage: "/letsencrypt/acme.json"
     certificatesResolvers.letsencrypt.acme.httpchallenge: true
     certificatesResolvers.letsencrypt.acme.httpchallenge.entrypoint: web
