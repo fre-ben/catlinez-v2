@@ -119,6 +119,23 @@ app.get("/api/news/en", async (req, res) => {
   }
 });
 
+// Kamal Healthcheck endpoint
+app.get("/api/up", async (req, res) => {
+  if (req.method === "GET") {
+    try {
+      return res.status(200).json({ ok: "UP" });
+    } catch {
+      return res.status(500).json({
+        error: "Something went wrong",
+      });
+    }
+  } else {
+    return res.status(405).json({
+      error: "Method not allowed",
+    });
+  }
+});
+
 app.use(express.static("dist/app"));
 
 app.get("*", (_request, response) => {
