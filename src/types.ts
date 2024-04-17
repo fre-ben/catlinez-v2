@@ -22,7 +22,7 @@ export interface CurrentsNews {
       language: string;
       category: string[];
       published: string;
-    }
+    },
   ];
   page: number;
 }
