@@ -14,7 +14,7 @@ const CURRENTS_APIKEY = process.env.VITE_CURRENTS_API;
  * @returns Headline
  */
 export function getRandomHeadline(news: CurrentsNews): Headline {
-  const randomNews: typeof news.news[0] = news.news[Math.floor(Math.random() * news.news.length)];
+  const randomNews: (typeof news.news)[0] = news.news[Math.floor(Math.random() * news.news.length)];
   const headline = { title: randomNews.title, url: randomNews.url };
 
   return headline;
@@ -27,7 +27,7 @@ export function getRandomHeadline(news: CurrentsNews): Headline {
  */
 export async function fetchNews(language: string): Promise<CurrentsNews> {
   const news = await fetch(
-    `https://api.currentsapi.services/v1/search?type=1&page_size=150&category=general&language=${language}&apiKey=${CURRENTS_APIKEY}`
+    `https://api.currentsapi.services/v1/search?type=1&page_size=150&category=general&language=${language}&apiKey=${CURRENTS_APIKEY}`,
   ).then((response) => {
     console.log("Daily calls to Currents API remaining: " + response.headers.get("X-RateLimit-Remaining"));
     return response.json();
@@ -42,7 +42,7 @@ export async function fetchNews(language: string): Promise<CurrentsNews> {
  */
 export async function fetchRandomCatGIF(): Promise<CatGif> {
   const result: any = await fetch(`https://g.tenor.com/v1/random?key=${TENOR_APIKEY}&q=cat&locale=en_US&limit=1`).then(
-    (res) => res.json()
+    (res) => res.json(),
   );
 
   return {

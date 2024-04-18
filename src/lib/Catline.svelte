@@ -1,10 +1,9 @@
 <script lang="ts">
   import type { CatGif, Headline } from "src/types";
-
-  import InlineSVG from "svelte-inline-svg";
+  // @ts-ignore
   import { fade } from "svelte/transition";
   import { getCatGIF, getHeadline } from "../utils/api";
-  import tenorAttributionSVG from "../assets/via_tenor_logo_white.svg";
+  import TenorAttributionSVG from "../assets/via_tenor_logo_white.svelte"
 
   let catPromise: Promise<CatGif>;
   let headlinePromise: Promise<Headline>;
@@ -43,7 +42,7 @@
       </a>
       <div class="grid gap-y-1">
         <img class="rounded-md" src={cat.url} alt={cat.title} width="300px" />
-        <InlineSVG src={tenorAttributionSVG} height={10} width={50} class="justify-self-end" tabindex={-1} />
+        <svelte:component this={TenorAttributionSVG}/>
       </div>
     </div>
   {:catch error}
