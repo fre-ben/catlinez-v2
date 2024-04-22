@@ -8,7 +8,7 @@ image: freben/catlinez-v2
 servers:
   web:
     hosts:
-      - 49.13.75.110
+      - <%= ENV["ENCRYPT_IP"] %>
     labels:
       traefik.http.routers.catlinez-v2-web.rule: Host(`catlinez.freben.xyz`)
       traefik.http.routers.catlinez-v2-web_secure.entrypoints: websecure
